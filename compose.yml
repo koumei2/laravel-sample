@@ -1,0 +1,18 @@
+services:
+    mysql:
+        container_name: ${PROJECT_NAME}-mysql
+        image: mysql:8.0
+        volumes:
+            - data:/var/lib/mysql
+            - ./logs/mysql:/var/log/mysql
+            - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+        environment:
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+            - TZ=Asia/Tokyo
+        ports:
+            - ${DB_HOST}:${DB_PORT}:3306
+
+volumes:
+    data:
+        name: ${PROJECT_NAME}-mysql-data
